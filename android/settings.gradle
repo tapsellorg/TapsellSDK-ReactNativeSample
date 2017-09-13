@@ -1,0 +1,4 @@
+rootProject.name = 'TapsellSample'
+include ':react-native-tapsell'
+project(':react-native-tapsell').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-tapsell/android')
+include ':app'
