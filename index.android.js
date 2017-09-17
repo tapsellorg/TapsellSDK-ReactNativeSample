@@ -18,49 +18,71 @@ import Tapsell from "react-native-tapsell";
 export default class TapsellSample extends Component {
 	constructor() {
 		super();
+		Tapsell.setDebugMode(false);
 		Tapsell.initialize(
 			"kilkhmaqckffopkpfnacjkobgrgnidkphkcbtmbcdhiokqetigljpnnrbfbnpnhmeikjbq"
 		);
 		this.state = {
 			showAdDisabled: true,
-			adId: ""
+			adId: "",
+			loading: false
 		};
 	}
 
 	onShowAdClicked() {
-		Tapsell.showAd({
-			ad_id: this.state.adId,
-			back_disabled: true,
-			immersive_mode: false,
-			rotation_mode: 3,
-			show_exit_dialog: true
-		});
+		// this.setState({ showAdDisabled: true });
+		Tapsell.showAd(
+			{
+				ad_id: this.state.adId,
+				back_disabled: false,
+				immersive_mode: false,
+				rotation_mode: 3,
+				show_exit_dialog: true
+			},
+			(zoneId, adId) => {
+				ToastAndroid.show("ad opened", ToastAndroid.SHORT);
+			},
+			(zoneId, adId) => {
+				ToastAndroid.show("ad closed", ToastAndroid.SHORT);
+			}
+		);
 	}
 
 	onRequestAdClicked() {
+		this.setState({ loading: true });
 		Tapsell.requestAd(
 			"586f52d9bc5c284db9445beb",
 			true,
 			(zoneId, adId) => {
-				ToastAndroid.show("add available", ToastAndroid.SHORT);
-				this.setState({ showAdDisabled: false, adId });
+				ToastAndroid.show("ad available", ToastAndroid.SHORT);
+				this.setState({ showAdDisabled: false, adId, loading: false });
 			},
 			zoneId => {
-				ToastAndroid.show("no add available", ToastAndroid.SHORT);
+				ToastAndroid.show("no ad available", ToastAndroid.SHORT);
+				this.setState({ loading: false });
 			},
 			zoneId => {
 				ToastAndroid.show("no network", ToastAndroid.SHORT);
+				this.setState({ loading: false });
 			},
 			(zoneId, error) => {
-				ToastAndroid.show(error, ToastAndroid.SHORT);
+				ToastAndroid.show("ERROR\n" + error, ToastAndroid.SHORT);
+				this.setState({ loading: false });
 			},
 			(zoneId, adId) => {
 				ToastAndroid.show("on expiring", ToastAndroid.SHORT);
+				this.setState({ loading: false });
 			}
 		);
 	}
 
 	render() {
+		let loadingIndicator = null;
+		if (this.state.loading) {
+			loadingIndicator = (
+				<Text style={styles.loadingText}>Loading...</Text>
+			);
+		}
 		return (
 			<View style={styles.container}>
 				<View style={styles.form}>
@@ -81,6 +103,7 @@ export default class TapsellSample extends Component {
 						onPress={this.onRequestAdClicked.bind(this)}>
 						<Text style={styles.buttonText}>Request Ad</Text>
 					</TouchableOpacity>
+					{loadingIndicator}
 				</View>
 			</View>
 		);
@@ -108,6 +131,10 @@ const styles = StyleSheet.create({
 	},
 	form: {
 		alignItems: "center"
+	},
+	loadingText: {
+		color: "black",
+		fontSize: 12
 	}
 });
 
