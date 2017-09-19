@@ -1,9 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
-
 import React, { Component } from "react";
 import {
 	AppRegistry,
@@ -18,7 +12,7 @@ import Tapsell from "react-native-tapsell";
 export default class TapsellSample extends Component {
 	constructor() {
 		super();
-		Tapsell.setDebugMode(false);
+		Tapsell.setDebugMode(true);
 		Tapsell.initialize(
 			"kilkhmaqckffopkpfnacjkobgrgnidkphkcbtmbcdhiokqetigljpnnrbfbnpnhmeikjbq"
 		);
@@ -30,7 +24,6 @@ export default class TapsellSample extends Component {
 	}
 
 	onShowAdClicked() {
-		// this.setState({ showAdDisabled: true });
 		Tapsell.showAd(
 			{
 				ad_id: this.state.adId,
