@@ -5,21 +5,42 @@ import {
 	Text,
 	View,
 	TouchableOpacity,
-	ToastAndroid
+	ToastAndroid,
+	Image,
+	Button,
+	ScrollView
 } from "react-native";
 import Tapsell from "react-native-tapsell";
+
+const APP_KEY =
+	"qjmospqbfarbhodregqecbbnfhcjllkflpbpsmdrtpqkapdeptftldfiapfgbamkhalbij";
+const ZONE_ID = "59b4d07d468465281b792cb7";
 
 export default class TapsellSample extends Component {
 	constructor() {
 		super();
 		Tapsell.setDebugMode(true);
-		Tapsell.initialize(
-			"kilkhmaqckffopkpfnacjkobgrgnidkphkcbtmbcdhiokqetigljpnnrbfbnpnhmeikjbq"
-		);
+		Tapsell.initialize(APP_KEY);
 		this.state = {
 			showAdDisabled: true,
 			adId: "",
-			loading: false
+			loading: false,
+			nativeAdData: {
+				ad_id: "",
+				zone_id: "",
+				title: "موضوع پیشفرض",
+				description: "توضیح پیشفرض",
+				call_to_action_text: "روی من کلیک کن",
+				icon_url:
+					"https://tapsell.ir/wp-content/uploads/2017/06/tapsell2.png",
+				portrait_static_image_url:
+					"https://tapsell.ir/wp-content/uploads/2017/06/tapsell2.png",
+				landscape_static_image_url:
+					"https://tapsell.ir/wp-content/uploads/2017/06/tapsell2.png",
+				error_message: "default error message"
+			},
+			landscape_image_w: 200,
+			onNativeAdClicked: () => {}
 		};
 	}
 
@@ -44,7 +65,7 @@ export default class TapsellSample extends Component {
 	onRequestAdClicked() {
 		this.setState({ loading: true });
 		Tapsell.requestAd(
-			"586f52d9bc5c284db9445beb",
+			ZONE_ID,
 			true,
 			(zoneId, adId) => {
 				ToastAndroid.show("ad available", ToastAndroid.SHORT);
@@ -69,6 +90,43 @@ export default class TapsellSample extends Component {
 		);
 	}
 
+	onRequestNativeAdClicked() {
+		this.setState({ loading: true });
+		Tapsell.requestNativeAd(
+			ZONE_ID,
+			(adData, onAdShown, onAdClicked) => {
+				this.setState(
+					{
+						loading: false,
+						nativeAdData: adData,
+						onNativeAdClicked: onAdClicked
+					},
+					() => {
+						onAdShown(adData.ad_id);
+					}
+				);
+			},
+			() => {
+				ToastAndroid.show("No Native Ad Available", ToastAndroid.SHORT);
+				this.setState({ loading: false });
+			},
+			() => {
+				ToastAndroid.show("No Network Available", ToastAndroid.SHORT);
+				this.setState({ loading: false });
+			},
+			error => {
+				ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
+				this.setState({ loading: false });
+			}
+		);
+	}
+
+	onNativeAdClicked() {
+		if (this.state.onNativeAdClicked) {
+			this.state.onNativeAdClicked(this.state.nativeAdData.ad_id);
+		}
+	}
+
 	render() {
 		let loadingIndicator = null;
 		if (this.state.loading) {
@@ -77,7 +135,7 @@ export default class TapsellSample extends Component {
 			);
 		}
 		return (
-			<View style={styles.container}>
+			<ScrollView style={styles.container}>
 				<View style={styles.form}>
 					<TouchableOpacity
 						onPress={this.onShowAdClicked.bind(this)}
@@ -98,7 +156,60 @@ export default class TapsellSample extends Component {
 					</TouchableOpacity>
 					{loadingIndicator}
 				</View>
-			</View>
+				<Text
+					style={{
+						fontWeight: "bold",
+						textAlign: "center",
+						paddingTop: 50
+					}}>
+					Native Banner Ad
+				</Text>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={this.onRequestNativeAdClicked.bind(this)}>
+					<Text style={styles.buttonText}>Request Native Ad</Text>
+				</TouchableOpacity>
+				<View
+					style={styles.nativeAdView}
+					onLayout={event => {
+						this.setState({
+							landscape_image_w: event.nativeEvent.layout.width
+						});
+					}}>
+					<View
+						style={{
+							flexDirection: "row",
+							alignItems: "center",
+							padding: 8
+						}}>
+						<Text>{this.state.nativeAdData.title}</Text>
+						<Image
+							resizeMode="stretch"
+							style={styles.icon}
+							source={{ uri: this.state.nativeAdData.icon_url }}
+						/>
+					</View>
+
+					<Text style={{ padding: 8, flex: 1 }}>
+						{this.state.nativeAdData.description}
+					</Text>
+					<Image
+						resizeMode="contain"
+						style={{
+							width: this.state.landscape_image_w,
+							height: 150
+						}}
+						source={{
+							uri: this.state.nativeAdData
+								.landscape_static_image_url
+						}}
+					/>
+					<Button
+						onPress={this.onNativeAdClicked.bind(this)}
+						title={this.state.nativeAdData.call_to_action_text}
+					/>
+				</View>
+			</ScrollView>
 		);
 	}
 }
@@ -123,11 +234,23 @@ const styles = StyleSheet.create({
 		textAlign: "center"
 	},
 	form: {
-		alignItems: "center"
+		alignItems: "center",
+		justifyContent: "center"
 	},
 	loadingText: {
 		color: "black",
 		fontSize: 12
+	},
+	nativeAdView: {
+		backgroundColor: "#E0E0E0",
+		flexDirection: "column",
+		alignItems: "flex-end",
+		padding: 8
+	},
+	icon: {
+		width: 48,
+		height: 48,
+		margin: 8
 	}
 });
 
