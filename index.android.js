@@ -10,7 +10,7 @@ import {
 	Button,
 	ScrollView
 } from "react-native";
-import Tapsell from "react-native-tapsell";
+import Tapsell, { AdVideo } from "react-native-tapsell";
 
 const APP_KEY =
 	"qjmospqbfarbhodregqecbbnfhcjllkflpbpsmdrtpqkapdeptftldfiapfgbamkhalbij";
@@ -134,91 +134,99 @@ export default class TapsellSample extends Component {
 				<Text style={styles.loadingText}>Loading...</Text>
 			);
 		}
-		return (
-			<ScrollView style={styles.container}>
-				<View style={styles.form}>
-					<TouchableOpacity
-						onPress={this.onShowAdClicked.bind(this)}
-						disabled={this.state.showAdDisabled}
-						style={
-							this.state.showAdDisabled ? (
-								styles.buttonDisabled
-							) : (
-								styles.button
-							)
-						}>
-						<Text style={styles.buttonText}>Show Ad</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						style={styles.button}
-						onPress={this.onRequestAdClicked.bind(this)}>
-						<Text style={styles.buttonText}>Request Ad</Text>
-					</TouchableOpacity>
-					{loadingIndicator}
-				</View>
-				<Text
-					style={{
-						fontWeight: "bold",
-						textAlign: "center",
-						paddingTop: 50
-					}}>
-					Native Banner Ad
-				</Text>
-				<TouchableOpacity
-					style={styles.button}
-					onPress={this.onRequestNativeAdClicked.bind(this)}>
-					<Text style={styles.buttonText}>Request Native Ad</Text>
-				</TouchableOpacity>
-				<View
-					style={styles.nativeAdView}
-					onLayout={event => {
-						this.setState({
-							landscape_image_w: event.nativeEvent.layout.width
-						});
-					}}>
-					<View
-						style={{
-							flexDirection: "row",
-							alignItems: "center",
-							padding: 8
-						}}>
-						<Text>{this.state.nativeAdData.title}</Text>
-						<Image
-							resizeMode="stretch"
-							style={styles.icon}
-							source={{ uri: this.state.nativeAdData.icon_url }}
-						/>
-					</View>
 
-					<Text style={{ padding: 8, flex: 1 }}>
-						{this.state.nativeAdData.description}
-					</Text>
-					<Image
-						resizeMode="contain"
-						style={{
-							width: this.state.landscape_image_w,
-							height: 150
-						}}
-						source={{
-							uri: this.state.nativeAdData
-								.landscape_static_image_url
-						}}
-					/>
-					<Button
-						onPress={this.onNativeAdClicked.bind(this)}
-						title={this.state.nativeAdData.call_to_action_text}
-					/>
-				</View>
-			</ScrollView>
+		return (
+			<View style={styles.container}>
+				<Text>SALAM</Text>
+				<AdVideo adId="TEST_ADID" />
+				<Text>SALAM</Text>
+			</View>
 		);
+		// return (
+		// 	<ScrollView style={styles.container}>
+		// 		<View style={styles.form}>
+		// 			<TouchableOpacity
+		// 				onPress={this.onShowAdClicked.bind(this)}
+		// 				disabled={this.state.showAdDisabled}
+		// 				style={
+		// 					this.state.showAdDisabled ? (
+		// 						styles.buttonDisabled
+		// 					) : (
+		// 						styles.button
+		// 					)
+		// 				}>
+		// 				<Text style={styles.buttonText}>Show Ad</Text>
+		// 			</TouchableOpacity>
+		// 			<TouchableOpacity
+		// 				style={styles.button}
+		// 				onPress={this.onRequestAdClicked.bind(this)}>
+		// 				<Text style={styles.buttonText}>Request Ad</Text>
+		// 			</TouchableOpacity>
+		// 			{loadingIndicator}
+		// 		</View>
+		// 		<Text
+		// 			style={{
+		// 				fontWeight: "bold",
+		// 				textAlign: "center",
+		// 				paddingTop: 50
+		// 			}}>
+		// 			Native Banner Ad
+		// 		</Text>
+		// 		<TouchableOpacity
+		// 			style={styles.button}
+		// 			onPress={this.onRequestNativeAdClicked.bind(this)}>
+		// 			<Text style={styles.buttonText}>Request Native Ad</Text>
+		// 		</TouchableOpacity>
+		// 		<View
+		// 			style={styles.nativeAdView}
+		// 			onLayout={event => {
+		// 				this.setState({
+		// 					landscape_image_w: event.nativeEvent.layout.width
+		// 				});
+		// 			}}>
+		// 			<View
+		// 				style={{
+		// 					flexDirection: "row",
+		// 					alignItems: "center",
+		// 					padding: 8
+		// 				}}>
+		// 				<Text>{this.state.nativeAdData.title}</Text>
+		// 				<Image
+		// 					resizeMode="stretch"
+		// 					style={styles.icon}
+		// 					source={{ uri: this.state.nativeAdData.icon_url }}
+		// 				/>
+		// 			</View>
+
+		// 			<Text style={{ padding: 8, flex: 1 }}>
+		// 				{this.state.nativeAdData.description}
+		// 			</Text>
+		// 			<Image
+		// 				resizeMode="contain"
+		// 				style={{
+		// 					width: this.state.landscape_image_w,
+		// 					height: 150
+		// 				}}
+		// 				source={{
+		// 					uri: this.state.nativeAdData
+		// 						.landscape_static_image_url
+		// 				}}
+		// 			/>
+		// 			<Button
+		// 				onPress={this.onNativeAdClicked.bind(this)}
+		// 				title={this.state.nativeAdData.call_to_action_text}
+		// 			/>
+		// 		</View>
+		// 	</ScrollView>
+		// );
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 0,
 		margin: 16,
-		backgroundColor: "#F5FCFF"
+		backgroundColor: "#F5FCFF",
+		alignItems: "center"
 	},
 	button: {
 		backgroundColor: "#E0E0E0",
