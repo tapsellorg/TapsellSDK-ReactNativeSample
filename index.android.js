@@ -24,6 +24,7 @@ export default class TapsellSample extends Component {
 		this.state = {
 			showAdDisabled: true,
 			adId: "",
+			nativeVideoAdId: "nativeVideo",
 			loading: false,
 			nativeAdData: {
 				ad_id: "",
@@ -39,8 +40,19 @@ export default class TapsellSample extends Component {
 					"https://tapsell.ir/wp-content/uploads/2017/06/tapsell2.png",
 				error_message: "default error message"
 			},
+			nativeVideoAdData: {
+				ad_id: "",
+				zone_id: "",
+				title: "موضوع پیشفرض",
+				description: "توضیح پیشفرض",
+				call_to_action_text: "روی من کلیک کن",
+				icon_url:
+					"https://tapsell.ir/wp-content/uploads/2017/06/tapsell2.png",
+				error_message: "default error message"
+			},
 			landscape_image_w: 200,
-			onNativeAdClicked: () => {}
+			onNativeAdClicked: () => {},
+			onNativeVideoAdClicked: () => {}
 		};
 	}
 
@@ -50,7 +62,7 @@ export default class TapsellSample extends Component {
 				ad_id: this.state.adId,
 				back_disabled: false,
 				immersive_mode: false,
-				rotation_mode: 3,
+				rotation_mode: Tapsell.ROTATION_UNLOCKED,
 				show_exit_dialog: true
 			},
 			(zoneId, adId) => {
@@ -90,9 +102,9 @@ export default class TapsellSample extends Component {
 		);
 	}
 
-	onRequestNativeAdClicked() {
+	onRequestNativeBannerAdClicked() {
 		this.setState({ loading: true });
-		Tapsell.requestNativeAd(
+		Tapsell.requestNativeBannerAd(
 			ZONE_ID,
 			(adData, onAdShown, onAdClicked) => {
 				this.setState(
@@ -121,11 +133,21 @@ export default class TapsellSample extends Component {
 		);
 	}
 
+	onRequestNativeVideoAdClicked() {}
+
 	onNativeAdClicked() {
 		if (this.state.onNativeAdClicked) {
 			this.state.onNativeAdClicked(this.state.nativeAdData.ad_id);
 		}
 	}
+
+	onNativeVideoAdClicked() {
+		if (this.state.onNativeVideoAdClicked) {
+			this.state.onNativeVideoAdClicked(this.state.nativeAdData.ad_id);
+		}
+	}
+
+	componentDidMount() {}
 
 	render() {
 		let loadingIndicator = null;
@@ -135,90 +157,138 @@ export default class TapsellSample extends Component {
 			);
 		}
 
-		return (
-			<View style={styles.container}>
-				<Text>SALAM</Text>
-				<AdVideo adId="TEST_ADID" />
-				<Text>SALAM</Text>
-			</View>
-		);
 		// return (
-		// 	<ScrollView style={styles.container}>
-		// 		<View style={styles.form}>
-		// 			<TouchableOpacity
-		// 				onPress={this.onShowAdClicked.bind(this)}
-		// 				disabled={this.state.showAdDisabled}
-		// 				style={
-		// 					this.state.showAdDisabled ? (
-		// 						styles.buttonDisabled
-		// 					) : (
-		// 						styles.button
-		// 					)
-		// 				}>
-		// 				<Text style={styles.buttonText}>Show Ad</Text>
-		// 			</TouchableOpacity>
-		// 			<TouchableOpacity
-		// 				style={styles.button}
-		// 				onPress={this.onRequestAdClicked.bind(this)}>
-		// 				<Text style={styles.buttonText}>Request Ad</Text>
-		// 			</TouchableOpacity>
-		// 			{loadingIndicator}
-		// 		</View>
-		// 		<Text
-		// 			style={{
-		// 				fontWeight: "bold",
-		// 				textAlign: "center",
-		// 				paddingTop: 50
-		// 			}}>
-		// 			Native Banner Ad
-		// 		</Text>
-		// 		<TouchableOpacity
-		// 			style={styles.button}
-		// 			onPress={this.onRequestNativeAdClicked.bind(this)}>
-		// 			<Text style={styles.buttonText}>Request Native Ad</Text>
-		// 		</TouchableOpacity>
-		// 		<View
-		// 			style={styles.nativeAdView}
-		// 			onLayout={event => {
-		// 				this.setState({
-		// 					landscape_image_w: event.nativeEvent.layout.width
-		// 				});
-		// 			}}>
-		// 			<View
-		// 				style={{
-		// 					flexDirection: "row",
-		// 					alignItems: "center",
-		// 					padding: 8
-		// 				}}>
-		// 				<Text>{this.state.nativeAdData.title}</Text>
-		// 				<Image
-		// 					resizeMode="stretch"
-		// 					style={styles.icon}
-		// 					source={{ uri: this.state.nativeAdData.icon_url }}
-		// 				/>
-		// 			</View>
-
-		// 			<Text style={{ padding: 8, flex: 1 }}>
-		// 				{this.state.nativeAdData.description}
-		// 			</Text>
-		// 			<Image
-		// 				resizeMode="contain"
-		// 				style={{
-		// 					width: this.state.landscape_image_w,
-		// 					height: 150
-		// 				}}
-		// 				source={{
-		// 					uri: this.state.nativeAdData
-		// 						.landscape_static_image_url
-		// 				}}
-		// 			/>
-		// 			<Button
-		// 				onPress={this.onNativeAdClicked.bind(this)}
-		// 				title={this.state.nativeAdData.call_to_action_text}
-		// 			/>
-		// 		</View>
-		// 	</ScrollView>
+		// 	<View style={styles.container}>
+		// 		<Text>SALAM</Text>
+		// 		<AdVideo adId="TEST_ADID" />
+		// 		<Text>SALAM</Text>
+		// 	</View>
 		// );
+		return (
+			<ScrollView>
+				<View style={styles.form}>
+					<TouchableOpacity
+						onPress={this.onShowAdClicked.bind(this)}
+						disabled={this.state.showAdDisabled}
+						style={
+							this.state.showAdDisabled ? (
+								styles.buttonDisabled
+							) : (
+								styles.button
+							)
+						}>
+						<Text style={styles.buttonText}>Show Ad</Text>
+					</TouchableOpacity>
+					<TouchableOpacity
+						style={styles.button}
+						onPress={this.onRequestAdClicked.bind(this)}>
+						<Text style={styles.buttonText}>Request Ad</Text>
+					</TouchableOpacity>
+					{loadingIndicator}
+				</View>
+				<Text
+					style={{
+						fontWeight: "bold",
+						textAlign: "center",
+						marginTop: 20
+					}}>
+					Native Banner Ad
+				</Text>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={this.onRequestNativeBannerAdClicked.bind(this)}>
+					<Text style={styles.buttonText}>
+						Request Native Banner Ad
+					</Text>
+				</TouchableOpacity>
+				<View
+					style={styles.nativeAdView}
+					onLayout={event => {
+						this.setState({
+							landscape_image_w: event.nativeEvent.layout.width
+						});
+					}}>
+					<View
+						style={{
+							flexDirection: "row",
+							alignItems: "center",
+							padding: 8
+						}}>
+						<Text>{this.state.nativeAdData.title}</Text>
+						<Image
+							resizeMode="stretch"
+							style={styles.icon}
+							source={{
+								uri: this.state.nativeAdData.icon_url
+							}}
+						/>
+					</View>
+
+					<Text style={{ padding: 8, flex: 1 }}>
+						{this.state.nativeAdData.description}
+					</Text>
+					<Image
+						resizeMode="contain"
+						style={{
+							width: this.state.landscape_image_w,
+							height: 150
+						}}
+						source={{
+							uri: this.state.nativeAdData
+								.landscape_static_image_url
+						}}
+					/>
+					<Button
+						onPress={this.onNativeAdClicked.bind(this)}
+						title={this.state.nativeAdData.call_to_action_text}
+					/>
+				</View>
+				<Text
+					style={{
+						fontWeight: "bold",
+						textAlign: "center",
+						paddingTop: 50
+					}}>
+					Native Video Ad
+				</Text>
+				<TouchableOpacity
+					style={styles.button}
+					onPress={this.onRequestNativeVideoAdClicked.bind(this)}>
+					<Text style={styles.buttonText}>
+						Request Native Video Ad
+					</Text>
+				</TouchableOpacity>
+
+				<View
+					style={{
+						flexDirection: "row",
+						alignSelf: "flex-end",
+						padding: 8
+					}}>
+					<Text style={{ marginTop: 24 }}>
+						{this.state.nativeVideoAdData.title}
+					</Text>
+					<Image
+						resizeMode="stretch"
+						style={styles.icon}
+						source={{
+							uri: this.state.nativeVideoAdData.icon_url
+						}}
+					/>
+				</View>
+
+				<Text style={{ padding: 8, flex: 1 }}>
+					{this.state.nativeVideoAdData.description}
+				</Text>
+				<View>
+					<AdVideo adId={this.state.nativeVideoAdId} />
+				</View>
+				<Button
+					onPress={this.onNativeVideoAdClicked.bind(this)}
+					title={this.state.nativeVideoAdData.call_to_action_text}
+				/>
+			</ScrollView>
+		);
 	}
 }
 
@@ -229,6 +299,7 @@ const styles = StyleSheet.create({
 		alignItems: "center"
 	},
 	button: {
+		alignSelf: "center",
 		backgroundColor: "#E0E0E0",
 		margin: 8
 	},
@@ -242,6 +313,7 @@ const styles = StyleSheet.create({
 		textAlign: "center"
 	},
 	form: {
+		margin: 16,
 		alignItems: "center",
 		justifyContent: "center"
 	},
@@ -253,7 +325,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "#E0E0E0",
 		flexDirection: "column",
 		alignItems: "flex-end",
-		padding: 8
+		padding: 8,
+		margin: 16
 	},
 	icon: {
 		width: 48,
