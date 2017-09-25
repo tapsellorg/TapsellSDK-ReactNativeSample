@@ -15,6 +15,8 @@ import Tapsell, { AdVideo } from "react-native-tapsell";
 const APP_KEY =
 	"qjmospqbfarbhodregqecbbnfhcjllkflpbpsmdrtpqkapdeptftldfiapfgbamkhalbij";
 const ZONE_ID = "59b4d07d468465281b792cb7";
+const NATIVE_ZONE_ID = "59c8a9334684656c504f0e19";
+const NATIVE_VIDEO_ZONE_ID = "59c8ae514684656c504fce40";
 
 export default class TapsellSample extends Component {
 	constructor() {
@@ -24,7 +26,6 @@ export default class TapsellSample extends Component {
 		this.state = {
 			showAdDisabled: true,
 			adId: "",
-			nativeVideoAdId: "nativeVideo",
 			loading: false,
 			nativeAdData: {
 				ad_id: "",
@@ -105,7 +106,7 @@ export default class TapsellSample extends Component {
 	onRequestNativeBannerAdClicked() {
 		this.setState({ loading: true });
 		Tapsell.requestNativeBannerAd(
-			ZONE_ID,
+			NATIVE_ZONE_ID,
 			(adData, onAdShown, onAdClicked) => {
 				this.setState(
 					{
@@ -133,7 +134,39 @@ export default class TapsellSample extends Component {
 		);
 	}
 
-	onRequestNativeVideoAdClicked() {}
+	onRequestNativeVideoAdClicked() {
+		this.setState({ loading: true });
+		Tapsell.requestNativeVideoAd(
+			NATIVE_VIDEO_ZONE_ID,
+			(adData, onAdShown, onAdClicked) => {
+				this.setState(
+					{
+						loading: false,
+						nativeVideoAdData: adData,
+						onNativeVideoAdClicked: onAdClicked
+					},
+					() => {
+						onAdShown(adData.ad_id);
+						setTimeout(() => {
+							this.render();
+						}, 1000);
+					}
+				);
+			},
+			() => {
+				ToastAndroid.show("No Native Ad Available", ToastAndroid.SHORT);
+				this.setState({ loading: false });
+			},
+			() => {
+				ToastAndroid.show("No Network Available", ToastAndroid.SHORT);
+				this.setState({ loading: false });
+			},
+			error => {
+				ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
+				this.setState({ loading: false });
+			}
+		);
+	}
 
 	onNativeAdClicked() {
 		if (this.state.onNativeAdClicked) {
@@ -143,7 +176,9 @@ export default class TapsellSample extends Component {
 
 	onNativeVideoAdClicked() {
 		if (this.state.onNativeVideoAdClicked) {
-			this.state.onNativeVideoAdClicked(this.state.nativeAdData.ad_id);
+			this.state.onNativeVideoAdClicked(
+				this.state.nativeVideoAdData.ad_id
+			);
 		}
 	}
 
@@ -157,13 +192,6 @@ export default class TapsellSample extends Component {
 			);
 		}
 
-		// return (
-		// 	<View style={styles.container}>
-		// 		<Text>SALAM</Text>
-		// 		<AdVideo adId="TEST_ADID" />
-		// 		<Text>SALAM</Text>
-		// 	</View>
-		// );
 		return (
 			<ScrollView>
 				<View style={styles.form}>
@@ -258,7 +286,7 @@ export default class TapsellSample extends Component {
 						Request Native Video Ad
 					</Text>
 				</TouchableOpacity>
-
+				{loadingIndicator}
 				<View
 					style={{
 						flexDirection: "row",
@@ -281,7 +309,7 @@ export default class TapsellSample extends Component {
 					{this.state.nativeVideoAdData.description}
 				</Text>
 				<View>
-					<AdVideo adId={this.state.nativeVideoAdId} />
+					<AdVideo adId={this.state.nativeVideoAdData.ad_id} />
 				</View>
 				<Button
 					onPress={this.onNativeVideoAdClicked.bind(this)}
@@ -319,7 +347,8 @@ const styles = StyleSheet.create({
 	},
 	loadingText: {
 		color: "black",
-		fontSize: 12
+		fontSize: 12,
+		alignSelf: "center"
 	},
 	nativeAdView: {
 		backgroundColor: "#E0E0E0",
