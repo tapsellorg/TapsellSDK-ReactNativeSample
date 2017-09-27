@@ -8,15 +8,20 @@ import {
 	ToastAndroid,
 	Image,
 	Button,
-	ScrollView
+	ScrollView,
+	Picker
 } from "react-native";
 import Tapsell, { AdVideo } from "react-native-tapsell";
 
 const APP_KEY =
-	"qjmospqbfarbhodregqecbbnfhcjllkflpbpsmdrtpqkapdeptftldfiapfgbamkhalbij";
-const ZONE_ID = "59b4d07d468465281b792cb7";
-const NATIVE_ZONE_ID = "59c8a9334684656c504f0e19";
-const NATIVE_VIDEO_ZONE_ID = "59c8ae514684656c504fce40";
+	"rashssjnjiaeqqeihgjdsihajkbkqgeqqdoftpafmlcoofdflejgmttlercbsdfbnjnjqs";
+const ZONE_ID = "586e4ed1bc5c28712bd8d50c";
+const NATIVE_ZONE_ID = "58aa98994684653c04d9b22d";
+const NATIVE_VIDEO_ZONE_ID = "58aa9d0d4684653c04da4e5e";
+
+const REWARD_AD_TYPE = "reward";
+const NATIVE_BANNER_AD_TYPE = "native-banner";
+const NATIVE_VIDEO_AD_TYPE = "native-video";
 
 export default class TapsellSample extends Component {
 	constructor() {
@@ -24,6 +29,8 @@ export default class TapsellSample extends Component {
 		Tapsell.setDebugMode(true);
 		Tapsell.initialize(APP_KEY);
 		this.state = {
+			adType: REWARD_AD_TYPE,
+			nativeVideoAdId: "0",
 			showAdDisabled: true,
 			adId: "",
 			loading: false,
@@ -51,7 +58,6 @@ export default class TapsellSample extends Component {
 					"https://tapsell.ir/wp-content/uploads/2017/06/tapsell2.png",
 				error_message: "default error message"
 			},
-			landscape_image_w: 200,
 			onNativeAdClicked: () => {},
 			onNativeVideoAdClicked: () => {}
 		};
@@ -147,9 +153,6 @@ export default class TapsellSample extends Component {
 					},
 					() => {
 						onAdShown(adData.ad_id);
-						setTimeout(() => {
-							this.render();
-						}, 1000);
 					}
 				);
 			},
@@ -192,139 +195,185 @@ export default class TapsellSample extends Component {
 			);
 		}
 
-		return (
-			<ScrollView>
-				<View style={styles.form}>
-					<TouchableOpacity
-						onPress={this.onShowAdClicked.bind(this)}
-						disabled={this.state.showAdDisabled}
-						style={
-							this.state.showAdDisabled ? (
-								styles.buttonDisabled
-							) : (
-								styles.button
-							)
-						}>
-						<Text style={styles.buttonText}>Show Ad</Text>
-					</TouchableOpacity>
-					<TouchableOpacity
-						style={styles.button}
-						onPress={this.onRequestAdClicked.bind(this)}>
-						<Text style={styles.buttonText}>Request Ad</Text>
-					</TouchableOpacity>
-					{loadingIndicator}
-				</View>
-				<Text
-					style={{
-						fontWeight: "bold",
-						textAlign: "center",
-						marginTop: 20
-					}}>
-					Native Banner Ad
-				</Text>
-				<TouchableOpacity
-					style={styles.button}
-					onPress={this.onRequestNativeBannerAdClicked.bind(this)}>
-					<Text style={styles.buttonText}>
-						Request Native Banner Ad
-					</Text>
-				</TouchableOpacity>
-				<View
-					style={styles.nativeAdView}
-					onLayout={event => {
-						this.setState({
-							landscape_image_w: event.nativeEvent.layout.width
-						});
-					}}>
-					<View
-						style={{
-							flexDirection: "row",
-							alignItems: "center",
-							padding: 8
-						}}>
-						<Text>{this.state.nativeAdData.title}</Text>
-						<Image
-							resizeMode="stretch"
-							style={styles.icon}
-							source={{
-								uri: this.state.nativeAdData.icon_url
-							}}
+		let adView = null;
+		switch (this.state.adType) {
+			case REWARD_AD_TYPE:
+				adView = (
+					<View style={styles.form}>
+						<TouchableOpacity
+							onPress={this.onShowAdClicked.bind(this)}
+							disabled={this.state.showAdDisabled}
+							style={
+								this.state.showAdDisabled ? (
+									styles.buttonDisabled
+								) : (
+									styles.button
+								)
+							}>
+							<Text style={styles.buttonText}>Show Ad</Text>
+						</TouchableOpacity>
+						<TouchableOpacity
+							style={styles.button}
+							onPress={this.onRequestAdClicked.bind(this)}>
+							<Text style={styles.buttonText}>Request Ad</Text>
+						</TouchableOpacity>
+					</View>
+				);
+				break;
+			case NATIVE_BANNER_AD_TYPE:
+				adView = (
+					<View>
+						<Text
+							style={{
+								fontWeight: "bold",
+								textAlign: "center",
+								marginTop: 20
+							}}>
+							Native Banner Ad
+						</Text>
+						<TouchableOpacity
+							style={styles.button}
+							onPress={this.onRequestNativeBannerAdClicked.bind(
+								this
+							)}>
+							<Text style={styles.buttonText}>
+								Request Native Banner Ad
+							</Text>
+						</TouchableOpacity>
+						<View
+							style={styles.nativeAdView}
+							onLayout={event => {
+								this.setState({
+									landscape_image_w:
+										event.nativeEvent.layout.width
+								});
+							}}>
+							<View
+								style={{
+									flexDirection: "row",
+									alignItems: "center",
+									padding: 8
+								}}>
+								<Text>{this.state.nativeAdData.title}</Text>
+								<Image
+									resizeMode="stretch"
+									style={styles.icon}
+									source={{
+										uri: this.state.nativeAdData.icon_url
+									}}
+								/>
+							</View>
+
+							<Text style={{ padding: 8, flex: 1 }}>
+								{this.state.nativeAdData.description}
+							</Text>
+							<Image
+								resizeMode="contain"
+								style={{
+									width: this.state.landscape_image_w,
+									height: 150
+								}}
+								source={{
+									uri: this.state.nativeAdData
+										.landscape_static_image_url
+								}}
+							/>
+							<Button
+								onPress={this.onNativeAdClicked.bind(this)}
+								title={
+									this.state.nativeAdData.call_to_action_text
+								}
+							/>
+						</View>
+					</View>
+				);
+				break;
+			case NATIVE_VIDEO_AD_TYPE:
+				adView = (
+					<View>
+						<Text
+							style={{
+								fontWeight: "bold",
+								textAlign: "center",
+								paddingTop: 50
+							}}>
+							Native Video Ad
+						</Text>
+						<TouchableOpacity
+							style={styles.button}
+							onPress={this.onRequestNativeVideoAdClicked.bind(
+								this
+							)}>
+							<Text style={styles.buttonText}>
+								Request Native Video Ad
+							</Text>
+						</TouchableOpacity>
+
+						<View
+							style={{
+								flexDirection: "row",
+								alignSelf: "flex-end",
+								padding: 8
+							}}>
+							<Text style={{ marginTop: 24 }}>
+								{this.state.nativeVideoAdData.title}
+							</Text>
+							<Image
+								resizeMode="stretch"
+								style={styles.icon}
+								source={{
+									uri: this.state.nativeVideoAdData.icon_url
+								}}
+							/>
+						</View>
+
+						<Text style={{ padding: 8, flex: 1 }}>
+							{this.state.nativeVideoAdData.description}
+						</Text>
+						<AdVideo adId={this.state.nativeVideoAdData.ad_id} />
+						<Button
+							onPress={this.onNativeVideoAdClicked.bind(this)}
+							title={
+								this.state.nativeVideoAdData.call_to_action_text
+							}
 						/>
 					</View>
+				);
+				break;
+		}
 
-					<Text style={{ padding: 8, flex: 1 }}>
-						{this.state.nativeAdData.description}
-					</Text>
-					<Image
-						resizeMode="contain"
-						style={{
-							width: this.state.landscape_image_w,
-							height: 150
-						}}
-						source={{
-							uri: this.state.nativeAdData
-								.landscape_static_image_url
-						}}
-					/>
-					<Button
-						onPress={this.onNativeAdClicked.bind(this)}
-						title={this.state.nativeAdData.call_to_action_text}
-					/>
-				</View>
-				<Text
-					style={{
-						fontWeight: "bold",
-						textAlign: "center",
-						paddingTop: 50
-					}}>
-					Native Video Ad
-				</Text>
-				<TouchableOpacity
-					style={styles.button}
-					onPress={this.onRequestNativeVideoAdClicked.bind(this)}>
-					<Text style={styles.buttonText}>
-						Request Native Video Ad
-					</Text>
-				</TouchableOpacity>
+		return (
+			<View style={styles.container}>
 				{loadingIndicator}
-				<View
-					style={{
-						flexDirection: "row",
-						alignSelf: "flex-end",
-						padding: 8
-					}}>
-					<Text style={{ marginTop: 24 }}>
-						{this.state.nativeVideoAdData.title}
-					</Text>
-					<Image
-						resizeMode="stretch"
-						style={styles.icon}
-						source={{
-							uri: this.state.nativeVideoAdData.icon_url
-						}}
-					/>
+				<View style={{ backgroundColor: "#E0E0E0" }}>
+					<Picker
+						selectedValue={this.state.adType}
+						onValueChange={(value, index) => {
+							this.setState({ adType: value });
+						}}>
+						<Picker.Item
+							label="Rewarded Ad"
+							value={REWARD_AD_TYPE}
+						/>
+						<Picker.Item
+							label="Native Banner Ad"
+							value={NATIVE_BANNER_AD_TYPE}
+						/>
+						<Picker.Item
+							label="Native Video Ad"
+							value={NATIVE_VIDEO_AD_TYPE}
+						/>
+					</Picker>
 				</View>
-
-				<Text style={{ padding: 8, flex: 1 }}>
-					{this.state.nativeVideoAdData.description}
-				</Text>
-				<View>
-					<AdVideo adId={this.state.nativeVideoAdData.ad_id} />
-				</View>
-				<Button
-					onPress={this.onNativeVideoAdClicked.bind(this)}
-					title={this.state.nativeVideoAdData.call_to_action_text}
-				/>
-			</ScrollView>
+				{adView}
+			</View>
 		);
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-		margin: 16,
-		backgroundColor: "#F5FCFF",
-		alignItems: "center"
+		margin: 16
 	},
 	button: {
 		alignSelf: "center",
@@ -347,8 +396,11 @@ const styles = StyleSheet.create({
 	},
 	loadingText: {
 		color: "black",
-		fontSize: 12,
-		alignSelf: "center"
+		fontSize: 16,
+		alignSelf: "center",
+		margin: 16,
+		color: "black",
+		fontWeight: "bold"
 	},
 	nativeAdView: {
 		backgroundColor: "#E0E0E0",
