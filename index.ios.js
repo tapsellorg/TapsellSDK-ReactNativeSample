@@ -26,7 +26,7 @@ const NATIVE_VIDEO_AD_TYPE = "native-video";
 export default class TapsellSample extends Component {
 	constructor() {
 		super();
-		// Tapsell.setDebugMode(true);
+		Tapsell.setDebugMode(true);
 		Tapsell.initialize(APP_KEY);
 		this.state = {
 			adType: REWARD_AD_TYPE,

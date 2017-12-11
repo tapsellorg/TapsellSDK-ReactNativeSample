@@ -3463,8 +3463,8 @@ react-devtools-core@^2.5.0:
     ws "^2.0.3"
 
 react-native-tapsell@^2.13.6:
-  version "2.14.2"
-  resolved "https://registry.yarnpkg.com/react-native-tapsell/-/react-native-tapsell-2.14.2.tgz#f24cc4a6f5f71eec1eb9bfc58496c0c578a32c16"
+  version "2.14.3"
+  resolved "https://registry.yarnpkg.com/react-native-tapsell/-/react-native-tapsell-2.14.3.tgz#59940fd7bf55258093ac996bc8b54b9ba8e581ff"
   dependencies:
     prop-types "^15.5.10"
 
