@@ -16,6 +16,7 @@
 #import "TSNativeBannerAdView.h"
 #import "TSNativeVideoAdView.h"
 #import "TSNativeBannerAdWrapper.h"
+#import "TSNativeVideoAdWrapper.h"
 
 @interface Tapsell : NSObject
 
@@ -53,7 +54,7 @@
                              onError:(void (^_Nullable)(NSString*_Nullable error)) onError;
 
 +(void) requestNativeBannerAdForZone:(NSString*_Nullable)zoneId
-                       onAdAvailable:(void (^_Nullable)(TSNativeBannerAdWrapper* nativeBannerAd)) onRequestFilled
+                       onAdAvailable:(void (^_Nullable)(TSNativeBannerAdWrapper*_Nonnull nativeBannerAd)) onAdAvailable
                      onNoAdAvailable:(void (^_Nullable)()) onNoAdAvailable
                              onError:(void (^_Nullable)(NSString*_Nullable error)) onError;
 +(void) nativeBannerAdShowWithAdId:(NSString*_Nonnull)adId;
@@ -64,6 +65,13 @@
                     onRequestFilled: (void (^_Nullable)()) onRequestFilled
                     onNoAdAvailable:(void (^_Nullable)()) onNoAdAvailable
                             onError:(void (^_Nullable)(NSString*_Nullable error)) onError;
+
++(void) requestNativeVideoAdForZone:(NSString*_Nullable)zoneId
+                       onAdAvailable:(void (^_Nullable)(TSNativeVideoAdWrapper*_Nonnull nativeVideoAd)) onAdAvailable
+                     onNoAdAvailable:(void (^_Nullable)()) onNoAdAvailable
+                             onError:(void (^_Nullable)(NSString*_Nullable error)) onError;
++(void) nativeVideoAdShowWithAdId:(NSString*_Nonnull)adId;
++(void) nativeVideoAdClickedWithAdId:(NSString*_Nonnull)adId;
 
 + (void)setAdShowFinishedCallback: (void (^)(TapsellAd * ad, BOOL completed)) onAdShowFinished;
 

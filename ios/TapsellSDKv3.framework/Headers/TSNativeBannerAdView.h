@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "TSNativeAdView.h"
+#import "TSNativeBannerBundle.h"
 
 @interface TSNativeBannerAdView : TSNativeAdView
 
 @property(nonatomic, readwrite) NSInteger mainImageTag;
+@property(nonatomic, strong, readonly) TSNativeBannerBundle* bundle;
 
--(void) loadAd:(NSObject*)ad;
-
+-(BOOL) loadAd:(NSObject*)ad;
+-(TSNativeBannerBundle*) getBundle;
+-(void) fillWithBundle:(TSNativeBannerBundle*)bundle;
 @end

@@ -34,12 +34,12 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* TapsellSampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* TapsellSampleTests.m */; };
+		3BA29FD824EC44C9B4E90EF2 /* libTSTapsell.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2DA16954BEE45189AB55394 /* libTSTapsell.a */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
-		7CA049F183E445369408B86E /* libTSTapsell.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 11B2C1EF98A8443AAC30B3C5 /* libTSTapsell.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
-		B2F007B51FDEA37400D0062F /* TapsellSDKv3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F007B41FDEA37400D0062F /* TapsellSDKv3.framework */; };
-		B2F007B61FDEA37400D0062F /* TapsellSDKv3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B2F007B41FDEA37400D0062F /* TapsellSDKv3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B2F575CB1FF118DF00BED2BE /* TapsellSDKv3.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F575CA1FF118DF00BED2BE /* TapsellSDKv3.framework */; };
+		B2F575CC1FF118DF00BED2BE /* TapsellSDKv3.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B2F575CA1FF118DF00BED2BE /* TapsellSDKv3.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -246,13 +246,6 @@
 			remoteGlobalIDString = ADD01A681E09402E00F6D226;
 			remoteInfo = "RCTBlob-tvOS";
 		};
-		B2E55DBA1FDC2EDF005D8943 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3456403088E34CE6936BC961 /* TSTapsell.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = B264A66D1F88F9BA00ADC652;
-			remoteInfo = TSTapsell;
-		};
 		B2F0079F1FDEA03F00D0062F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 146833FF1AC3E56700842450 /* React.xcodeproj */;
@@ -281,6 +274,13 @@
 			remoteGlobalIDString = 3D383D621EBD27B9005632C8;
 			remoteInfo = "double-conversion-tvOS";
 		};
+		B2F577751FF1462C00BED2BE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3AF5716AF9894905BEF4003B /* TSTapsell.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B264A66D1F88F9BA00ADC652;
+			remoteInfo = TSTapsell;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -290,7 +290,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B2F007B61FDEA37400D0062F /* TapsellSDKv3.framework in Embed Frameworks */,
+				B2F575CC1FF118DF00BED2BE /* TapsellSDKv3.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -307,7 +307,6 @@
 		00E356EE1AD99517003FC87E /* TapsellSampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TapsellSampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* TapsellSampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TapsellSampleTests.m; sourceTree = "<group>"; };
-		11B2C1EF98A8443AAC30B3C5 /* libTSTapsell.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTSTapsell.a; sourceTree = "<group>"; };
 		139105B61AF99BAD00B5F7CC /* RCTSettings.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTSettings.xcodeproj; path = "../node_modules/react-native/Libraries/Settings/RCTSettings.xcodeproj"; sourceTree = "<group>"; };
 		139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTWebSocket.xcodeproj; path = "../node_modules/react-native/Libraries/WebSocket/RCTWebSocket.xcodeproj"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* TapsellSample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TapsellSample.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -320,12 +319,13 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* TapsellSample-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TapsellSample-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* TapsellSample-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TapsellSample-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3456403088E34CE6936BC961 /* TSTapsell.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TSTapsell.xcodeproj; path = "../node_modules/react-native-tapsell/ios/TSTapsell.xcodeproj"; sourceTree = "<group>"; };
+		3AF5716AF9894905BEF4003B /* TSTapsell.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = TSTapsell.xcodeproj; path = "../node_modules/react-native-tapsell/ios/TSTapsell.xcodeproj"; sourceTree = "<group>"; };
 		5E91572D1DD0AC6500FF2AA8 /* RCTAnimation.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTAnimation.xcodeproj; path = "../node_modules/react-native/Libraries/NativeAnimation/RCTAnimation.xcodeproj"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
+		A2DA16954BEE45189AB55394 /* libTSTapsell.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libTSTapsell.a; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
-		B2F007B41FDEA37400D0062F /* TapsellSDKv3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TapsellSDKv3.framework; sourceTree = "<group>"; };
+		B2F575CA1FF118DF00BED2BE /* TapsellSDKv3.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TapsellSDKv3.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,7 +346,7 @@
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
-				B2F007B51FDEA37400D0062F /* TapsellSDKv3.framework in Frameworks */,
+				B2F575CB1FF118DF00BED2BE /* TapsellSDKv3.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
@@ -355,7 +355,7 @@
 				832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */,
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
-				7CA049F183E445369408B86E /* libTSTapsell.a in Frameworks */,
+				3BA29FD824EC44C9B4E90EF2 /* libTSTapsell.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -527,7 +527,7 @@
 				832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */,
 				00C302DF1ABCB9EE00DB3ED1 /* RCTVibration.xcodeproj */,
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
-				3456403088E34CE6936BC961 /* TSTapsell.xcodeproj */,
+				3AF5716AF9894905BEF4003B /* TSTapsell.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
@@ -544,7 +544,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				B2F007B41FDEA37400D0062F /* TapsellSDKv3.framework */,
+				B2F575CA1FF118DF00BED2BE /* TapsellSDKv3.framework */,
 				13B07FAE1A68108700A75B9A /* TapsellSample */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* TapsellSampleTests */,
@@ -579,15 +579,15 @@
 		B2E55DA11FDC2EDD005D8943 /* Recovered References */ = {
 			isa = PBXGroup;
 			children = (
-				11B2C1EF98A8443AAC30B3C5 /* libTSTapsell.a */,
+				A2DA16954BEE45189AB55394 /* libTSTapsell.a */,
 			);
 			name = "Recovered References";
 			sourceTree = "<group>";
 		};
-		B2E55DB71FDC2EDE005D8943 /* Products */ = {
+		B2F577721FF1462C00BED2BE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B2E55DBB1FDC2EDF005D8943 /* libTSTapsell.a */,
+				B2F577761FF1462C00BED2BE /* libTSTapsell.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -753,8 +753,8 @@
 					ProjectRef = 146833FF1AC3E56700842450 /* React.xcodeproj */;
 				},
 				{
-					ProductGroup = B2E55DB71FDC2EDE005D8943 /* Products */;
-					ProjectRef = 3456403088E34CE6936BC961 /* TSTapsell.xcodeproj */;
+					ProductGroup = B2F577721FF1462C00BED2BE /* Products */;
+					ProjectRef = 3AF5716AF9894905BEF4003B /* TSTapsell.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -957,13 +957,6 @@
 			remoteRef = B2E55DA71FDC2EDE005D8943 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		B2E55DBB1FDC2EDF005D8943 /* libTSTapsell.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libTSTapsell.a;
-			remoteRef = B2E55DBA1FDC2EDF005D8943 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
 		B2F007A01FDEA03F00D0062F /* libthird-party.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -990,6 +983,13 @@
 			fileType = archive.ar;
 			path = "libdouble-conversion.a";
 			remoteRef = B2F007A51FDEA03F00D0062F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		B2F577761FF1462C00BED2BE /* libTSTapsell.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libTSTapsell.a;
+			remoteRef = B2F577751FF1462C00BED2BE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
