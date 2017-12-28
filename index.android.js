@@ -11,17 +11,19 @@ import {
 	ScrollView,
 	Picker
 } from "react-native";
-import Tapsell, { AdVideo } from "react-native-tapsell";
+import Tapsell, { AdVideo, BannerAd } from "react-native-tapsell";
 
 const APP_KEY =
 	"rashssjnjiaeqqeihgjdsihajkbkqgeqqdoftpafmlcoofdflejgmttlercbsdfbnjnjqs";
 const ZONE_ID = "586e4ed1bc5c28712bd8d50c";
 const NATIVE_ZONE_ID = "58aa98994684653c04d9b22d";
 const NATIVE_VIDEO_ZONE_ID = "58aa9d0d4684653c04da4e5e";
+const BANNER_ZONE_ID = "59a27ab94684655433e74ef8";
 
 const REWARD_AD_TYPE = "reward";
 const NATIVE_BANNER_AD_TYPE = "native-banner";
 const NATIVE_VIDEO_AD_TYPE = "native-video";
+const BANNER_AD_TYPE = "banner-ad";
 
 export default class TapsellSample extends Component {
 	constructor() {
@@ -204,11 +206,9 @@ export default class TapsellSample extends Component {
 							onPress={this.onShowAdClicked.bind(this)}
 							disabled={this.state.showAdDisabled}
 							style={
-								this.state.showAdDisabled ? (
-									styles.buttonDisabled
-								) : (
-									styles.button
-								)
+								this.state.showAdDisabled
+									? styles.buttonDisabled
+									: styles.button
 							}>
 							<Text style={styles.buttonText}>Show Ad</Text>
 						</TouchableOpacity>
@@ -340,11 +340,22 @@ export default class TapsellSample extends Component {
 					</View>
 				);
 				break;
+			case BANNER_AD_TYPE:
+				adView = (
+					<View style={{ marginTop: 50 }}>
+						<BannerAd
+							zoneId="59a27ab94684655433e74ef8"
+							bannerType={Tapsell.BANNER_300x250}
+						/>
+					</View>
+				);
+				break;
 		}
 
 		return (
 			<View style={styles.container}>
 				{loadingIndicator}
+
 				<View style={{ backgroundColor: "#E0E0E0" }}>
 					<Picker
 						selectedValue={this.state.adType}
@@ -363,6 +374,7 @@ export default class TapsellSample extends Component {
 							label="Native Video Ad"
 							value={NATIVE_VIDEO_AD_TYPE}
 						/>
+						<Picker.Item label="Banner Ad" value={BANNER_AD_TYPE} />
 					</Picker>
 				</View>
 				{adView}
