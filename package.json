@@ -9,11 +9,7 @@
 	"dependencies": {
 		"react": "16.0.0-alpha.12",
 		"react-native": "0.48.2",
-<<<<<<< HEAD
-		"react-native-tapsell": "^2.13.6"
-=======
 		"react-native-tapsell": "^2.15.3"
->>>>>>> 75a51d818c1be7c9a6bdfc8036171ea7517ed553
 	},
 	"devDependencies": {
 		"babel-jest": "21.0.2",

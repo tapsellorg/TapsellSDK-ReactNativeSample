@@ -14,18 +14,10 @@ import {
 import Tapsell, { AdVideo, BannerAd } from "react-native-tapsell";
 
 const APP_KEY =
-<<<<<<< HEAD
-	"rashssjnjiaeqqeihgjdsihajkbkqgeqqdoftpafmlcoofdflejgmttlercbsdfbnjnjqs";
-const ZONE_ID = "586e4ed1bc5c28712bd8d50c";
-const NATIVE_ZONE_ID = "58aa98994684653c04d9b22d";
-const NATIVE_VIDEO_ZONE_ID = "58aa9d0d4684653c04da4e5e";
-const BANNER_ZONE_ID = "59a27ab94684655433e74ef8";
-=======
 	"qjmospqbfarbhodregqecbbnfhcjllkflpbpsmdrtpqkapdeptftldfiapfgbamkhalbij";
 const ZONE_ID = "59b4d07d468465281b792cb7";
 const NATIVE_ZONE_ID = "59c8a9334684656c504f0e19";
 const NATIVE_VIDEO_ZONE_ID = "59c8ae514684656c504fce40";
->>>>>>> 75a51d818c1be7c9a6bdfc8036171ea7517ed553
 
 const REWARD_AD_TYPE = "reward";
 const NATIVE_BANNER_AD_TYPE = "native-banner";
