@@ -18,6 +18,7 @@ const APP_KEY =
 const ZONE_ID = "59b4d07d468465281b792cb7";
 const NATIVE_ZONE_ID = "59c8a9334684656c504f0e19";
 const NATIVE_VIDEO_ZONE_ID = "59c8ae514684656c504fce40";
+const STANDARD_BANNER_ZONE_ID = "5a44aa6565a77100013d5fb3";
 
 const REWARD_AD_TYPE = "reward";
 const NATIVE_BANNER_AD_TYPE = "native-banner";
@@ -343,7 +344,7 @@ export default class TapsellSample extends Component {
 				adView = (
 					<View style={{ marginTop: 50 }}>
 						<BannerAd
-							zoneId="59a27ab94684655433e74ef8"
+							zoneId={STANDARD_BANNER_ZONE_ID}
 							bannerType={Tapsell.BANNER_300x250}
 						/>
 					</View>
