@@ -8,7 +8,7 @@
  */
 
 #import <UIKit/UIKit.h>
-
+#import <TapsellSDKv3/TapsellSDKv3.h>
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (nonatomic, strong) UIWindow *window;
