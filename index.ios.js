@@ -11,22 +11,24 @@ import {
 	Picker,
 	AppRegistry
 } from "react-native";
-import Tapsell, { AdVideo } from "react-native-tapsell";
+import Tapsell, { AdVideo, BannerAd } from "react-native-tapsell";
 
 const APP_KEY =
 	"qjmospqbfarbhodregqecbbnfhcjllkflpbpsmdrtpqkapdeptftldfiapfgbamkhalbij";
 const ZONE_ID = "59b4d07d468465281b792cb7";
 const NATIVE_ZONE_ID = "59c8a9334684656c504f0e19";
 const NATIVE_VIDEO_ZONE_ID = "59c8ae514684656c504fce40";
+const STANDARD_BANNER_ZONE_ID = "5a44aa6565a77100013d5fb3";
 
 const REWARD_AD_TYPE = "reward";
 const NATIVE_BANNER_AD_TYPE = "native-banner";
 const NATIVE_VIDEO_AD_TYPE = "native-video";
+const BANNER_AD_TYPE = "banner-ad";
 
 export default class TapsellSample extends Component {
 	constructor() {
 		super();
-		// Tapsell.setDebugMode(true);
+		Tapsell.setDebugMode(true);
 		Tapsell.initialize(APP_KEY);
 		this.state = {
 			adType: REWARD_AD_TYPE,
@@ -393,6 +395,16 @@ export default class TapsellSample extends Component {
 						/>
 					</View>
 				);
+                break;
+                case BANNER_AD_TYPE:
+				adView = (
+					<View style={{ marginTop: 50 }}>
+						<BannerAd
+							zoneId={STANDARD_BANNER_ZONE_ID}
+							bannerType={Tapsell.BANNER_250x250}
+						/>
+					</View>
+				);
 				break;
 		}
 
@@ -418,6 +430,7 @@ export default class TapsellSample extends Component {
 							label="Native Video Ad"
 							value={NATIVE_VIDEO_AD_TYPE}
 						/>
+                        <Picker.Item label="Banner Ad" value={BANNER_AD_TYPE} />
 					</Picker>
 				</View>
 				{adView}
