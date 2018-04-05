@@ -7,9 +7,9 @@
 		"test": "jest"
 	},
 	"dependencies": {
-		"react": "16.0.0-alpha.12",
-		"react-native": "0.48.2",
-		"react-native-tapsell": "^2.15.7"
+		"react": "^16.3.0-alpha.1",
+		"react-native": "0.54.4",
+		"react-native-tapsell": "^2.15.10"
 	},
 	"devDependencies": {
 		"babel-jest": "21.0.2",

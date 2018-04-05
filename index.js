@@ -1,15 +1,15 @@
 import React, { Component } from "react";
 import {
-	Platform,
+	AppRegistry,
 	StyleSheet,
 	Text,
 	View,
 	TouchableOpacity,
+	ToastAndroid,
 	Image,
 	Button,
 	ScrollView,
-	Picker,
-	AppRegistry
+	Picker
 } from "react-native";
 import Tapsell, { AdVideo, BannerAd } from "react-native-tapsell";
 
@@ -32,11 +32,10 @@ export default class TapsellSample extends Component {
 		Tapsell.initialize(APP_KEY);
 		this.state = {
 			adType: REWARD_AD_TYPE,
+			nativeVideoAdId: "0",
 			showAdDisabled: true,
 			adId: "",
 			loading: false,
-			onNativeAdClicked: () => {},
-			onNativeVideoAdClicked: () => {},
 			nativeAdData: {
 				ad_id: "",
 				zone_id: "",
@@ -60,27 +59,30 @@ export default class TapsellSample extends Component {
 				icon_url:
 					"https://tapsell.ir/wp-content/uploads/2017/06/tapsell2.png",
 				error_message: "default error message"
-			}
+			},
+			onNativeAdClicked: () => {},
+			onNativeVideoAdClicked: () => {}
 		};
+		Tapsell.setRewardListener((zoneId, adId, completed, rewarded) => {
+			// onAdShowFinished
+			console.log("onAdShowFinished");
+		});
 	}
+
 	onShowAdClicked() {
 		Tapsell.showAd(
 			{
 				ad_id: this.state.adId,
-				back_disabled: false,
+				back_disabled: true,
 				immersive_mode: false,
 				rotation_mode: Tapsell.ROTATION_UNLOCKED,
 				show_exit_dialog: true
 			},
 			(zoneId, adId) => {
-				if (Platform.OS === "android")
-					ToastAndroid.show("ad opened", ToastAndroid.SHORT);
-				else console.log("ad opened");
+				ToastAndroid.show("ad opened", ToastAndroid.SHORT);
 			},
 			(zoneId, adId) => {
-				if (Platform.OS === "android")
-					ToastAndroid.show("ad closed", ToastAndroid.SHORT);
-				else console.log("ad closed");
+				ToastAndroid.show("ad closed", ToastAndroid.SHORT);
 			}
 		);
 	}
@@ -91,33 +93,23 @@ export default class TapsellSample extends Component {
 			ZONE_ID,
 			true,
 			(zoneId, adId) => {
-				if (Platform.OS === "android")
-					ToastAndroid.show("ad available", ToastAndroid.SHORT);
-				else console.log("ad available");
+				ToastAndroid.show("ad available", ToastAndroid.SHORT);
 				this.setState({ showAdDisabled: false, adId, loading: false });
 			},
 			zoneId => {
-				if (Platform.OS === "android")
-					ToastAndroid.show("no ad available", ToastAndroid.SHORT);
-				else console.log("no ad available");
+				ToastAndroid.show("no ad available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			zoneId => {
-				if (Platform.OS === "android")
-					ToastAndroid.show("no network", ToastAndroid.SHORT);
-				else console.log("no network");
+				ToastAndroid.show("no network", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			(zoneId, error) => {
-				if (Platform.OS === "android")
-					ToastAndroid.show("ERROR\n" + error, ToastAndroid.SHORT);
-				else console.log("ERROR\n" + error);
+				ToastAndroid.show("ERROR\n" + error, ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			(zoneId, adId) => {
-				if (Platform.OS === "android")
-					ToastAndroid.show("on expiring", ToastAndroid.SHORT);
-				else console.log("on expiring");
+				ToastAndroid.show("on expiring", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			}
 		);
@@ -140,36 +132,18 @@ export default class TapsellSample extends Component {
 				);
 			},
 			() => {
-				if (Platform.OS == "android")
-					ToastAndroid.show(
-						"No Native Ad Available",
-						ToastAndroid.SHORT
-					);
-				else console.log("No Native Ad Available");
+				ToastAndroid.show("No Native Ad Available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			() => {
-				if (Platform.OS == "android")
-					ToastAndroid.show(
-						"No Network Available",
-						ToastAndroid.SHORT
-					);
-				else console.log("No Network Available");
+				ToastAndroid.show("No Network Available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			error => {
-				if (Platform.OS == "android")
-					ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
-				else console.log("Error: " + error);
+				ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			}
 		);
-	}
-
-	onNativeAdClicked() {
-		if (this.state.onNativeAdClicked) {
-			this.state.onNativeAdClicked(this.state.nativeAdData.ad_id);
-		}
 	}
 
 	onRequestNativeVideoAdClicked() {
@@ -177,7 +151,6 @@ export default class TapsellSample extends Component {
 		Tapsell.requestNativeVideoAd(
 			NATIVE_VIDEO_ZONE_ID,
 			(adData, onAdShown, onAdClicked) => {
-				nativeVideoAdId = adData.ad_id;
 				this.setState(
 					{
 						loading: false,
@@ -190,33 +163,15 @@ export default class TapsellSample extends Component {
 				);
 			},
 			() => {
-				if (Platform.OS == "ios") {
-					console.log("No Native Ad Available");
-				} else {
-					ToastAndroid.show(
-						"No Native Ad Available",
-						ToastAndroid.SHORT
-					);
-				}
+				ToastAndroid.show("No Native Ad Available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			() => {
-				if (Platform.OS == "ios") {
-					console.log("No Network Available");
-				} else {
-					ToastAndroid.show(
-						"No Network Available",
-						ToastAndroid.SHORT
-					);
-				}
+				ToastAndroid.show("No Network Available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			error => {
-				if (Platform.OS == "ios") {
-					console.log("Error: " + error);
-				} else {
-					ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
-				}
+				ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			}
 		);
@@ -235,6 +190,8 @@ export default class TapsellSample extends Component {
 			);
 		}
 	}
+
+	componentDidMount() {}
 
 	render() {
 		let loadingIndicator = null;
@@ -256,14 +213,12 @@ export default class TapsellSample extends Component {
 								this.state.showAdDisabled
 									? styles.buttonDisabled
 									: styles.button
-							}
-						>
+							}>
 							<Text style={styles.buttonText}>Show Ad</Text>
 						</TouchableOpacity>
 						<TouchableOpacity
 							style={styles.button}
-							onPress={this.onRequestAdClicked.bind(this)}
-						>
+							onPress={this.onRequestAdClicked.bind(this)}>
 							<Text style={styles.buttonText}>Request Ad</Text>
 						</TouchableOpacity>
 					</View>
@@ -277,16 +232,14 @@ export default class TapsellSample extends Component {
 								fontWeight: "bold",
 								textAlign: "center",
 								marginTop: 20
-							}}
-						>
+							}}>
 							Native Banner Ad
 						</Text>
 						<TouchableOpacity
 							style={styles.button}
 							onPress={this.onRequestNativeBannerAdClicked.bind(
 								this
-							)}
-						>
+							)}>
 							<Text style={styles.buttonText}>
 								Request Native Banner Ad
 							</Text>
@@ -298,15 +251,13 @@ export default class TapsellSample extends Component {
 									landscape_image_w:
 										event.nativeEvent.layout.width
 								});
-							}}
-						>
+							}}>
 							<View
 								style={{
 									flexDirection: "row",
 									alignItems: "center",
 									padding: 8
-								}}
-							>
+								}}>
 								<Text>{this.state.nativeAdData.title}</Text>
 								<Image
 									resizeMode="stretch"
@@ -317,7 +268,7 @@ export default class TapsellSample extends Component {
 								/>
 							</View>
 
-							<Text style={{ padding: 8 }}>
+							<Text style={{ padding: 8, flex: 1 }}>
 								{this.state.nativeAdData.description}
 							</Text>
 							<Image
@@ -349,16 +300,14 @@ export default class TapsellSample extends Component {
 								fontWeight: "bold",
 								textAlign: "center",
 								paddingTop: 50
-							}}
-						>
+							}}>
 							Native Video Ad
 						</Text>
 						<TouchableOpacity
 							style={styles.button}
 							onPress={this.onRequestNativeVideoAdClicked.bind(
 								this
-							)}
-						>
+							)}>
 							<Text style={styles.buttonText}>
 								Request Native Video Ad
 							</Text>
@@ -369,8 +318,7 @@ export default class TapsellSample extends Component {
 								flexDirection: "row",
 								alignSelf: "flex-end",
 								padding: 8
-							}}
-						>
+							}}>
 							<Text style={{ marginTop: 24 }}>
 								{this.state.nativeVideoAdData.title}
 							</Text>
@@ -383,7 +331,7 @@ export default class TapsellSample extends Component {
 							/>
 						</View>
 
-						<Text style={{ padding: 8 }}>
+						<Text style={{ padding: 8, flex: 1 }}>
 							{this.state.nativeVideoAdData.description}
 						</Text>
 						<AdVideo adId={this.state.nativeVideoAdData.ad_id} />
@@ -395,13 +343,13 @@ export default class TapsellSample extends Component {
 						/>
 					</View>
 				);
-                break;
-                case BANNER_AD_TYPE:
+				break;
+			case BANNER_AD_TYPE:
 				adView = (
 					<View style={{ marginTop: 50 }}>
 						<BannerAd
 							zoneId={STANDARD_BANNER_ZONE_ID}
-							bannerType={Tapsell.BANNER_250x250}
+							bannerType={Tapsell.BANNER_300x250}
 						/>
 					</View>
 				);
@@ -411,13 +359,13 @@ export default class TapsellSample extends Component {
 		return (
 			<View style={styles.container}>
 				{loadingIndicator}
+
 				<View style={{ backgroundColor: "#E0E0E0" }}>
 					<Picker
 						selectedValue={this.state.adType}
 						onValueChange={(value, index) => {
 							this.setState({ adType: value });
-						}}
-					>
+						}}>
 						<Picker.Item
 							label="Rewarded Ad"
 							value={REWARD_AD_TYPE}
@@ -430,7 +378,7 @@ export default class TapsellSample extends Component {
 							label="Native Video Ad"
 							value={NATIVE_VIDEO_AD_TYPE}
 						/>
-                        <Picker.Item label="Banner Ad" value={BANNER_AD_TYPE} />
+						<Picker.Item label="Banner Ad" value={BANNER_AD_TYPE} />
 					</Picker>
 				</View>
 				{adView}
