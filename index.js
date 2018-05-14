@@ -9,7 +9,8 @@ import {
 	Image,
 	Button,
 	ScrollView,
-	Picker
+    Picker,
+    Platform
 } from "react-native";
 import Tapsell, { AdVideo, BannerAd } from "react-native-tapsell";
 
@@ -64,7 +65,6 @@ export default class TapsellSample extends Component {
 			onNativeVideoAdClicked: () => {}
 		};
 		Tapsell.setRewardListener((zoneId, adId, completed, rewarded) => {
-			// onAdShowFinished
 			console.log("onAdShowFinished");
 		});
 	}
@@ -79,10 +79,10 @@ export default class TapsellSample extends Component {
 				show_exit_dialog: true
 			},
 			(zoneId, adId) => {
-				ToastAndroid.show("ad opened", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("ad opened", ToastAndroid.SHORT);
 			},
 			(zoneId, adId) => {
-				ToastAndroid.show("ad closed", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("ad closed", ToastAndroid.SHORT);
 			}
 		);
 	}
@@ -93,23 +93,23 @@ export default class TapsellSample extends Component {
 			ZONE_ID,
 			true,
 			(zoneId, adId) => {
-				ToastAndroid.show("ad available", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("ad available", ToastAndroid.SHORT);
 				this.setState({ showAdDisabled: false, adId, loading: false });
 			},
 			zoneId => {
-				ToastAndroid.show("no ad available", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("no ad available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			zoneId => {
-				ToastAndroid.show("no network", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("no network", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			(zoneId, error) => {
-				ToastAndroid.show("ERROR\n" + error, ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("ERROR\n" + error, ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			(zoneId, adId) => {
-				ToastAndroid.show("on expiring", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("on expiring", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			}
 		);
@@ -132,15 +132,15 @@ export default class TapsellSample extends Component {
 				);
 			},
 			() => {
-				ToastAndroid.show("No Native Ad Available", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("No Native Ad Available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			() => {
-				ToastAndroid.show("No Network Available", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("No Network Available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			error => {
-				ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			}
 		);
@@ -163,15 +163,15 @@ export default class TapsellSample extends Component {
 				);
 			},
 			() => {
-				ToastAndroid.show("No Native Ad Available", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("No Native Ad Available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			() => {
-				ToastAndroid.show("No Network Available", ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("No Network Available", ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			},
 			error => {
-				ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
+				if(Platform.OS === 'android')ToastAndroid.show("Error: " + error, ToastAndroid.SHORT);
 				this.setState({ loading: false });
 			}
 		);
