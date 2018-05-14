@@ -73,7 +73,7 @@ export default class TapsellSample extends Component {
 		Tapsell.showAd(
 			{
 				ad_id: this.state.adId,
-				back_disabled: true,
+				back_disabled: false,
 				immersive_mode: false,
 				rotation_mode: Tapsell.ROTATION_UNLOCKED,
 				show_exit_dialog: true
