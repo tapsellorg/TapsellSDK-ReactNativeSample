@@ -1,0 +1,15 @@
+version: 2
+jobs:
+  build:
+    docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
+      - image: behdad222/android-sdk:v3.0.2
+      
+    steps:
+      - checkout
+      - run: 
+          name: build
+          command: |
+            npm install
+            mkdir -p ./android/app/src/main/assets
+            react-native bundle --platform android --dev false --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.bundle --assets-dest ./android/app/src/main/res
+            cd ./android && ./gradlew assembleDebug
