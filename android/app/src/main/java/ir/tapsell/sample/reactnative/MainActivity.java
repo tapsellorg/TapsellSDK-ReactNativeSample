@@ -1,4 +1,4 @@
-package com.tapsellsample;
+package ir.tapsell.sample.reactnative;
 
 import com.facebook.react.ReactActivity;
 

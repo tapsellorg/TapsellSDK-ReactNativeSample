@@ -1,4 +1,4 @@
-package com.tapsellsample;
+package ir.tapsell.sample.reactnative;
 
 import android.app.Application;
 
@@ -17,7 +17,7 @@ public class MainApplication extends Application implements ReactApplication {
   private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
     @Override
     public boolean getUseDeveloperSupport() {
-      return BuildConfig.DEBUG;
+      return false;
     }
 
     @Override
