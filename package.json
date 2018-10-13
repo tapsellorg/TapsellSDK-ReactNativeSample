@@ -1,24 +1,26 @@
 {
-	"name": "TapsellReactNative",
-	"version": "0.0.1",
-	"private": true,
-	"scripts": {
-		"start": "node node_modules/react-native/local-cli/cli.js start",
-		"test": "jest"
-	},
-	"dependencies": {
-		"android": "0.0.8",
-		"react": "^16.3.0-alpha.1",
-		"react-native": "^0.56.0",
-		"react-native-tapsell": "3.0.0"
-	},
-	"devDependencies": {
-		"babel-jest": "21.0.2",
-		"babel-preset-react-native": "^5.0.0",
-		"jest": "21.0.2",
-		"react-test-renderer": "16.0.0-alpha.12"
-	},
-	"jest": {
-		"preset": "react-native"
-	}
+  "name": "TapsellReactNative",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "android": "0.0.8",
+    "eslint": "^5.7.0",
+    "react": "^16.5.2",
+    "react-native": "^0.56.0",
+    "react-native-tapsell": "^3.1.0",
+    "react-navigation": "^2.18.0"
+  },
+  "devDependencies": {
+    "babel-jest": "21.0.2",
+    "babel-preset-react-native": "^5.0.0",
+    "jest": "21.0.2",
+    "react-test-renderer": "16.0.0-alpha.12"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
 }
