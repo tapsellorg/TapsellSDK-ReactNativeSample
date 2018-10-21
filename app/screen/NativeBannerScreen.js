@@ -28,7 +28,7 @@ export default class NativeBanner extends React.Component {
       clickListener: () => {}
     };
 
-    Tapsell.createCache(ZONE_IDS.NATIVE_BANNER, Tapsell.CACHE_SIZE_MEDIUM);
+    Tapsell.createCache(ZONE_IDS.NATIVE_BANNER, Tapsell.CACHE_SIZE_SMALL);
 
     Tapsell.requestCachedNativeBannerAd(
       ZONE_IDS.NATIVE_BANNER,
