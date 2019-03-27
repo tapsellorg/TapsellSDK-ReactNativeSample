@@ -2,7 +2,7 @@ version: 2
 jobs:
   build:
     docker: # See https://docs.docker.com/get-started/#docker-concepts if you are new to Docker.
-      - image: behdad222/android-sdk:v3.0.2
+      - image: behdad222/android-sdk:v3.0.5
       
     steps:
       - checkout
