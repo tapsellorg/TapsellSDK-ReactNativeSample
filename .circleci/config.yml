@@ -6,12 +6,20 @@ jobs:
 
     steps:
       - checkout
+      
       - run:
-          name: build
+          name: npm install
+          command: npm install
+
+      - run:
+          name: Fix offline build
           command: |
-            npm install
             newLine="          return false;"
-            sed -i "/BuildConfig.DEBUG/c\ $newLine" ./android/app/src/main/java/ir/tapsell/sample/reactnative/MainApplication
+            sed -i "/BuildConfig.DEBUG/c\ $newLine" ./android/app/src/main/java/ir/tapsell/sample/reactnative/MainApplication.java
+
+      - run:
+          name: Build
+          command: |
             mkdir -p ./android/app/src/main/assets
             react-native bundle --platform android --dev false --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.bundle --assets-dest ./android/app/src/main/res
             cd ./android && gradle assembleDebug
