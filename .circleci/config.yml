@@ -10,6 +10,8 @@ jobs:
           name: build
           command: |
             npm install
+            newLine="          return false;"
+            sed -i "/BuildConfig.DEBUG/c\ $newLine" ./android/app/src/main/java/ir/tapsell/sample/reactnative/MainApplication
             mkdir -p ./android/app/src/main/assets
             react-native bundle --platform android --dev false --entry-file index.js --bundle-output ./android/app/src/main/assets/index.android.bundle --assets-dest ./android/app/src/main/res
             cd ./android && gradle assembleDebug
