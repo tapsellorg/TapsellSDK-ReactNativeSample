@@ -10,7 +10,8 @@ import {
 import { APP_KEY } from "./app/Constants";
 
 import Tapsell, { AdVideo, BannerAd } from "react-native-tapsell";
-import { createStackNavigator } from "react-navigation";
+import { createAppContainer } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
 
 const RootStack = createStackNavigator({
   Root: { screen: RootScreen },
@@ -20,6 +21,9 @@ const RootStack = createStackNavigator({
   NativeVideo: { screen: NativeVideoScreen }
 });
 
+const AppContainer = createAppContainer(RootStack);
+export default AppContainer;
+
 class TapsellSample extends React.Component {
   constructor() {
     super();
@@ -27,7 +31,7 @@ class TapsellSample extends React.Component {
   }
 
   render() {
-    return <RootStack />;
+    return <AppContainer uriPrefix="/app" />;
   }
 }
 
