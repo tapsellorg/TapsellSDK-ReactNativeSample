@@ -16,6 +16,7 @@ jobs:
           command: |
             newLine="          return false;"
             sed -i "/BuildConfig.DEBUG/c\ $newLine" ./android/app/src/main/java/ir/tapsell/sample/reactnative/MainApplication.java
+            cat ./android/app/src/main/java/ir/tapsell/sample/reactnative/MainApplication.java
 
       - run:
           name: Build
